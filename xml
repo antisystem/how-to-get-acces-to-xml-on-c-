@@ -1,0 +1,42 @@
+        private List<Leegstaand> _List;
+        public List<Leegstaand> BIGList
+        {
+            get
+            {
+            //creat xml document
+                XmlDocument doc = new XmlDocument();
+            //link the xml document
+                doc.Load("Lijst_leegstaande_bedrijfspanden.xml");
+            //set the element
+                XmlNodeList ElementNaam = doc.GetElementsByTagName("Name of the element");
+            
+            //creats new list
+                _List = new List<Leegstaand>();
+
+            //counts the number of elements
+                 elementcount = ElementNaam.Count;
+                 
+                 //adds to the list from the xml dof
+                    _List.Add(new Leegstaand()
+                    {
+
+                        Adress = ElementNaam[2]["Adress"].InnerXml,
+                        Age = ElementNaam[2]["fme:AGE"].InnerXml,
+                        Index = ElementNaam[5]["fme:Nr"].InnerXml
+
+                    });
+
+
+                return _List;
+            }
+            set
+            {
+                _Standlijsten = value;
+            }
+
+        }
+        //override string
+        public override string ToString()
+        {
+            return "Age " + this.Age + "- Adress -" + this.Adress;
+        }
